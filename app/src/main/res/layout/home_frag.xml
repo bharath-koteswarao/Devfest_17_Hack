@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical">
+	
+	<ImageView
+		android:id="@+id/emergency_button"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center"
+		android:layout_marginTop="50dp"
+		android:src="@drawable/red_circle"/>
+	
+	<LinearLayout
+		android:id="@+id/ll"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_marginTop="300dp"
+		android:alpha="0"
+		android:background="#002657"
+		android:gravity="center"
+		android:orientation="vertical">
+		
+		<AutoCompleteTextView
+			android:id="@+id/type"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="10dp"
+			android:layout_marginLeft="20dp"
+			android:layout_marginRight="20dp"
+			android:backgroundTint="#fff"
+			android:textColor="#fff"
+			android:textSize="25dp"
+			/>
+		
+		<Button
+			android:id="@+id/alertButton"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="20dp"
+			android:layout_marginRight="20dp"
+			android:background="@drawable/alert_bg"
+			android:text="Send alert"
+			android:textColor="#002657"/>
+	</LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

@@ -1,10 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
+	android:orientation="vertical"
 	tools:context="bk.myapp.MainActivity">
-
-</android.support.constraint.ConstraintLayout>
+	
+	<android.support.design.widget.AppBarLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:theme="@style/AppTheme.AppBarOverlay">
+		
+		<android.support.v7.widget.Toolbar
+			android:id="@+id/toolbar"
+			android:layout_width="match_parent"
+			android:layout_height="?attr/actionBarSize"
+			android:background="#002657"
+			app:popupTheme="@style/AppTheme.PopupOverlay"/>
+	
+	
+	</android.support.design.widget.AppBarLayout>
+	
+	<com.mxn.soul.flowingdrawer_core.FlowingDrawer
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		android:id="@+id/drawerlayout"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:clipChildren="false"
+		android:clipToPadding="false"
+		app:edMenuBackground="#dddddd"
+		app:edMenuSize="260dp"
+		app:edPosition="1">
+		
+		<!--content-->
+		<RelativeLayout
+			android:id="@+id/content"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"/>
+		
+		<!--menu-->
+		<com.mxn.soul.flowingdrawer_core.FlowingMenuLayout
+			android:id="@+id/menulayout"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+			
+			<FrameLayout
+				android:id="@+id/id_container_menu"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:background="#002657"/>
+			
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:orientation="vertical">
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="52dp"
+					android:onClick="hf"
+					>
+					<TextView
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:layout_gravity="center"
+						android:textSize="25dp"
+						android:textColor="#fff"
+						android:textStyle="bold"
+						android:gravity="center"
+						android:text="Home"/>
+				</LinearLayout>
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="52dp"
+					android:onClick="hisf">
+					<TextView
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:layout_gravity="center"
+						android:textColor="#fff"
+						android:textStyle="bold"
+						android:gravity="center"
+						android:text="History"/>
+				</LinearLayout>
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="52dp"
+					android:onClick="cf">
+					<TextView
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:layout_gravity="center"
+						android:textColor="#fff"
+						android:textStyle="bold"
+						android:gravity="center"
+						android:text="Coupons"/>
+				</LinearLayout>
+				<View
+					android:layout_width="match_parent"
+					android:layout_marginLeft="30dp"
+					android:layout_marginRight="30dp"
+					android:layout_marginTop="10dp"
+					android:layout_marginBottom="10dp"
+					android:background="#fff"
+					android:layout_height="2dp"/>
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="52dp"
+					android:onClick="setf">
+					<TextView
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:layout_gravity="center"
+						android:textColor="#fff"
+						android:textStyle="bold"
+						android:gravity="center"
+						android:text="Settings"/>
+				</LinearLayout>
+			</LinearLayout>
+		</com.mxn.soul.flowingdrawer_core.FlowingMenuLayout>
+	
+	</com.mxn.soul.flowingdrawer_core.FlowingDrawer>
+</LinearLayout>
