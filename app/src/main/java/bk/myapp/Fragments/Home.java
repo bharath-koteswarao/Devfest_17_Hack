@@ -49,6 +49,8 @@ public class Home extends Fragment {
                 if (count == 0) {
                     emergencyButton.animate().translationYBy(-300).setDuration(400);
                     layout.animate().alpha(1).setDuration(400);
+                    alertButton.setVisibility(View.VISIBLE);
+                    completeTextView.setVisibility(View.VISIBLE);
                     count += 1;
                 }
             }
@@ -67,6 +69,8 @@ public class Home extends Fragment {
             count = 0;
             emergencyButton.animate().translationYBy(300).setDuration(400);
             layout.animate().alpha(0).setDuration(400);
+            alertButton.setVisibility(View.GONE);
+            completeTextView.setVisibility(View.GONE);
         }
     }
 }

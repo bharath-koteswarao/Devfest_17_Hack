@@ -9,12 +9,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 import bk.myapp.Fragments.Coupons;
 import bk.myapp.Fragments.History;
 import bk.myapp.Fragments.Home;
 import bk.myapp.Fragments.Settings;
 import com.google.firebase.database.*;
+import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
 
 public class MainActivity extends AppCompatActivity {
     RelativeLayout layout;
@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     FragmentManager manager;
     Toolbar toolbar;
     SharedPreferences preferences;
+    FlowingDrawer drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +35,11 @@ public class MainActivity extends AppCompatActivity {
         preferences = getSharedPreferences("sp", MODE_PRIVATE);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("EmergencI");
+        drawer = (FlowingDrawer) findViewById(R.id.drawerlayout);
+        getSupportActionBar().setTitle("Emergenci");
         layout = (RelativeLayout) findViewById(R.id.content);
         initializeFragments();
         manager = this.getFragmentManager();
-        startActivity(new Intent(this,MapActivity.class));
         transaction = manager.beginTransaction();
         transaction.replace(R.id.content, home).commit();
         listenToFirebaseChanges();
@@ -52,10 +53,8 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Person p = dataSnapshot.getValue(Person.class);
                 if (!p.name.equals(preferences.getString("name", ""))) {
-                    // TODO: 29-10-2017 send notification
-                    Toast.makeText(MainActivity.this, "notif", Toast.LENGTH_SHORT).show();
                     Notifs notifs = new Notifs(MainActivity.this);
-                    notifs.showNotification();
+                    notifs.showNotification(p.reason);
                 }
             }
 
@@ -76,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
     private void performTransaction(Fragment fragToReplace) {
         transaction = manager.beginTransaction();
         transaction.replace(R.id.content, fragToReplace).commit();
+        drawer.closeMenu();
     }
 
     @Override
@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void sendAlertMessage(String reason) {
         (new Firebase(this)).sendAlertMessage(preferences.getString("name", ""), reason);
+        startActivity(new Intent(this, AlertSuccessActivity.class));
     }
 
     public void hf(View view) {
@@ -101,5 +102,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void setf(View view) {
         performTransaction(settings);
+    }
+
+    public void emf(View view) {
+        startActivity(new Intent(this, NotificationReceiver.class));
     }
 }

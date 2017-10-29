@@ -41,7 +41,8 @@
 			android:layout_height="wrap_content"
 			android:layout_marginLeft="20dp"
 			android:layout_marginRight="20dp"
-			android:background="@drawable/alert_bg"
+			android:background
+				="@drawable/alert_bg"
 			android:text="Send alert"
 			android:textColor="#002657"/>
 	</LinearLayout>

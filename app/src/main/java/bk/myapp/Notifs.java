@@ -18,13 +18,14 @@ public class Notifs {
         this.context = context;
     }
 
-    public void showNotification() {
+    public void showNotification(String reason) {
         NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         Intent intent = new Intent(context, NotificationReceiver.class);
         PendingIntent pi = PendingIntent.getActivity(context, 10, intent, 0);
         Notification notification = new Notification.Builder(context)
             .setContentTitle("New Emergency")
             .setSmallIcon(R.mipmap.icon)
+            .setContentText(reason)
             .setContentIntent(pi)
             .build();
         manager.notify(0,notification);

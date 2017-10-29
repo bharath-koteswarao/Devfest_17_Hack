@@ -93,6 +93,7 @@
 				android:orientation="horizontal"
 				app:bring_to_clamp="150dp"
 				app:clamp="self"
+				android:onClick="goToMapActivity"
 				app:gravity="left"
 				app:sticky="100dp">
 				

@@ -60,22 +60,25 @@
 				<LinearLayout
 					android:layout_width="match_parent"
 					android:layout_height="52dp"
+					android:layout_marginTop="5dp"
+					android:layout_marginLeft="10dp"
 					android:onClick="hf"
 					>
 					<TextView
 						android:layout_width="match_parent"
 						android:layout_height="match_parent"
-						android:layout_gravity="center"
-						android:textSize="25dp"
 						android:textColor="#fff"
 						android:textStyle="bold"
-						android:gravity="center"
+						android:layout_marginLeft="100dp"
+						android:gravity="left|center"
 						android:text="Home"/>
 				</LinearLayout>
 				<LinearLayout
 					android:layout_width="match_parent"
 					android:layout_height="52dp"
-					android:onClick="hisf">
+					android:layout_marginTop="5dp"
+					android:layout_marginLeft="10dp"
+					android:onClick="emf">
 					<TextView
 						android:layout_width="match_parent"
 						android:layout_height="match_parent"
@@ -83,7 +86,7 @@
 						android:textColor="#fff"
 						android:textStyle="bold"
 						android:gravity="center"
-						android:text="Nearby emergencies"/>
+						android:text="Emergencies"/>
 				</LinearLayout>
 				<LinearLayout
 					android:layout_width="match_parent"
