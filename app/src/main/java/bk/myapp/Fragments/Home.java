@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import bk.myapp.MainActivity;
 import bk.myapp.R;
 
 /**
@@ -52,8 +53,15 @@ public class Home extends Fragment {
                 }
             }
         });
+        alertButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainActivity) getActivity()).sendAlertMessage(completeTextView.getText().toString());
+            }
+        });
 
     }
+
     public void backPressed() {
         if (count > 0) {
             count = 0;
