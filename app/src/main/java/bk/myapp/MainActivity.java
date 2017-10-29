@@ -2,6 +2,7 @@ package bk.myapp;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         layout = (RelativeLayout) findViewById(R.id.content);
         initializeFragments();
         manager = this.getFragmentManager();
+        startActivity(new Intent(this,MapActivity.class));
         transaction = manager.beginTransaction();
         transaction.replace(R.id.content, home).commit();
         listenToFirebaseChanges();

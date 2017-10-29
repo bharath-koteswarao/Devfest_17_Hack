@@ -12,5 +12,6 @@ public class NotificationReceiver extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification_receiver);
         layout = (SwipeLayout) findViewById(R.id.swipe_layout);
+
     }
 }
