@@ -25,7 +25,6 @@ public class Login extends AppCompatActivity {
         userName = (EditText) findViewById(R.id.email);
         preferences = getSharedPreferences("sp",MODE_PRIVATE);
         performCheck(preferences.getBoolean("loggedIn", false));
-        setUpToolbar();
         Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/candara.ttf");
         welcome = (TextView) findViewById(R.id.welcome);
         welcome.setTypeface(tf);

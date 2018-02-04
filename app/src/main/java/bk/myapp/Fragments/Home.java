@@ -11,7 +11,7 @@ import bk.myapp.MainActivity;
 import bk.myapp.R;
 
 /**
- * Created by koteswarao on 29-10-2017.
+ * Created by koteswarao
  * ${CLASS}
  */
 

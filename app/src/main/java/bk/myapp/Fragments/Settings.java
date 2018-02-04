@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import bk.myapp.R;
 
 /**
- * Created by koteswarao on 29-10-2017.
+ * Created by koteswarao
  * ${CLASS}
  */
 
