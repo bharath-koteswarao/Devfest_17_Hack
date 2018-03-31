@@ -25,7 +25,7 @@
 			android:textSize="52dp"
 			android:text="WELCOME"/>
 		<EditText
-			android:id="@+id/email"
+			android:id="@+id/userName"
 			android:layout_width="238dp"
 			android:layout_height="43dp"
 			android:gravity="center"
@@ -35,7 +35,7 @@
 			android:layout_marginRight="10dp"
 			android:background="@drawable/login_et_bg"
 			android:drawablePadding="7dp"
-			android:hint="Email"
+			android:hint="Username"
 			android:inputType="textEmailAddress"
 			android:padding="10dp"
 			android:textColor="#fff"
@@ -65,7 +65,7 @@
 			android:layout_margin="10dp"
 			android:background="@drawable/submit_bg"
 			android:gravity="center"
-			android:onClick="move"
+			android:onClick="createUser"
 			android:padding="10dp"
 			android:text="LOGIN"
 			android:textColor="#8677CE"

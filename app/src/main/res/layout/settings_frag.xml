@@ -1,7 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<LinearLayout
+	
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical">
+	
+	
+	<android.support.v4.widget.NestedScrollView
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+		
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:orientation="vertical">
+			
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="1dp"
+				android:background="@color/seperatorColor"
+				/>
+			
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@color/lightHeadingBackground"
+				android:paddingBottom="15dp"
+				android:paddingStart="16dp"
+				android:paddingTop="15dp"
+				android:text="GENERAL"
+				android:textColor="@color/lightHeadingText"
+				android:textSize="12sp"/>
+			
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="1dp"
+				android:background="@color/seperatorColor"
+				/>
+			
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:clickable="true"
+				android:focusable="true"
+				android:foreground="?android:attr/selectableItemBackground"
+				android:onClick="startTrustedContacts"
+				android:orientation="horizontal">
+				
+				<ImageView
+					android:layout_width="wrap_content"
+					android:layout_height="match_parent"
+					android:contentDescription="Settings"
+					android:padding="16dp"
+					android:src="@drawable/ic_contacts_white_24dp"/>
+				
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:gravity="center_vertical"
+					android:text="Trusted Contacts"
+					android:textSize="14sp"/>
+			</LinearLayout>
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="1dp"
+				android:background="@color/seperatorColor"
+				/>
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:clickable="true"
+				android:focusable="true"
+				android:foreground="?android:attr/selectableItemBackground"
+				android:onClick="logout"
+				android:orientation="horizontal">
+				
+				<ImageView
+					android:layout_width="wrap_content"
+					android:layout_height="match_parent"
+					android:contentDescription="Settings"
+					android:padding="16dp"
+					android:src="@drawable/ic_exit_to_app_black_24dp"/>
+				
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:gravity="center_vertical"
+					android:text="Logout"
+					android:textSize="14sp"/>
+			</LinearLayout>
+			
+			
+		
+		</LinearLayout>
+	</android.support.v4.widget.NestedScrollView>
 
 </LinearLayout>

@@ -7,11 +7,13 @@ package bk.myapp;
 
 public class Person {
     public String name;
+    public String password;
     public String reason;
 
-    public Person(String name, String reason) {
+    public Person(String name, String password,String reason) {
         this.name = name;
         this.reason = reason;
+        this.password = password;
     }
 
     public Person() {

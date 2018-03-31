@@ -4,15 +4,20 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 import bk.myapp.Fragments.Coupons;
 import bk.myapp.Fragments.History;
 import bk.myapp.Fragments.Home;
 import bk.myapp.Fragments.Settings;
+import bk.myapp.showContactsRecview.ViewContacts;
 import com.google.firebase.database.*;
 import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
 
@@ -45,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         listenToFirebaseChanges();
     }
 
+
     private void listenToFirebaseChanges() {
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference reference = database.getReference("name");
@@ -52,9 +58,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Person p = dataSnapshot.getValue(Person.class);
-                if (!p.name.equals(preferences.getString("name", ""))) {
-                    Notifs notifs = new Notifs(MainActivity.this);
-                    notifs.showNotification(p.reason);
+                if (p != null) {
+                    if (!p.name.equals(preferences.getString("name", ""))) {
+                        Notifs notifs = new Notifs(MainActivity.this);
+                        notifs.showNotification(p.reason);
+                    }
                 }
             }
 
@@ -106,5 +114,33 @@ public class MainActivity extends AppCompatActivity {
 
     public void emf(View view) {
         startActivity(new Intent(this, NotificationReceiver.class));
+    }
+
+    public void startTrustedContacts(View view) {
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
+            startActivity(new Intent(this, ViewContacts.class));
+        } else {
+            //ask for permission if user didnot given
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(new String[]{android.Manifest.permission.READ_CONTACTS}, 0);
+            }
+        }
+    }
+
+    public void logout(View view) {
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 0: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    startActivity(new Intent(this, ViewContacts.class));
+                } else {
+                    Toast.makeText(this, "We need contacts permission", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
     }
 }
