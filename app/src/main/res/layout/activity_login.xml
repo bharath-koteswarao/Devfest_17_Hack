@@ -67,25 +67,25 @@
 			android:gravity="center"
 			android:onClick="createUser"
 			android:padding="10dp"
-			android:text="LOGIN"
+			android:text="CONTINUE"
 			android:textColor="#8677CE"
 			android:textStyle="bold"/>
 		
-		<TextView
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:gravity="center"
-			android:padding="10dp"
-			android:text="Forgot Password ?"
-			android:textColor="#fff"/>
+		<!--<TextView-->
+			<!--android:layout_width="match_parent"-->
+			<!--android:layout_height="wrap_content"-->
+			<!--android:gravity="center"-->
+			<!--android:padding="10dp"-->
+			<!--android:text="Forgot Password ?"-->
+			<!--android:textColor="#fff"/>-->
 		
-		<TextView
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:gravity="center"
-			android:textSize="28dp"
-			android:padding="10dp"
-			android:text="New User ?"
-			android:textColor="#fff"/>
+		<!--<TextView-->
+			<!--android:layout_width="match_parent"-->
+			<!--android:layout_height="wrap_content"-->
+			<!--android:gravity="center"-->
+			<!--android:textSize="28dp"-->
+			<!--android:padding="10dp"-->
+			<!--android:text="New User ?"-->
+			<!--android:textColor="#fff"/>-->
 	</LinearLayout>
 </LinearLayout>

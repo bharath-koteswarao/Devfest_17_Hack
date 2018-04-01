@@ -1,5 +1,6 @@
 package bk.myapp.addContactsRecview;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
+import bk.myapp.MainActivity;
 import bk.myapp.R;
 
 import java.util.List;
@@ -64,6 +66,6 @@ public class AddContacts extends AppCompatActivity {
         }
         editor.putString("contacts", build).apply();
         Toast.makeText(this, "Added", Toast.LENGTH_SHORT).show();
-        onBackPressed();
+        startActivity(new Intent(this, MainActivity.class));
     }
 }

@@ -10,6 +10,8 @@ import android.widget.*;
 import bk.myapp.MainActivity;
 import bk.myapp.R;
 
+import java.util.Date;
+
 /**
  * Created by koteswarao
  * ${CLASS}
@@ -34,9 +36,9 @@ public class Home extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         String[] reasons = new String[]{"Heart attack", "Crime", "Accident"
-            , "Natural disasters", "Chemical Emergency", "Earth quake",
-            "Fire", "Flood", "Heat wave", "Sunstroke", "Hurricane", "Landslide", "Poisoning",
-            "Terrorism", "Tornado"};
+                , "Natural disasters", "Chemical Emergency", "Earth quake",
+                "Fire", "Flood", "Heat wave", "Sunstroke", "Hurricane", "Landslide", "Poisoning",
+                "Terrorism", "Tornado"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.support_simple_spinner_dropdown_item, reasons);
         emergencyButton = (ImageView) getActivity().findViewById(R.id.emergency_button);
         completeTextView = (AutoCompleteTextView) getActivity().findViewById(R.id.type);
@@ -58,10 +60,21 @@ public class Home extends Fragment {
         alertButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity) getActivity()).sendAlertMessage(completeTextView.getText().toString());
+                String res = completeTextView.getText().toString();
+                res = res.isEmpty() ? "Critical Emergency" + getSpaces() : res + getSpaces();
+                ((MainActivity) getActivity()).sendAlertMessage(res);
             }
         });
 
+    }
+
+    private String getSpaces() {
+        String space = "";
+        int s = (new Date()).getSeconds() % 10;
+        for (int i = 0; i < s; i++) {
+            space += " ";
+        }
+        return space;
     }
 
     public void backPressed() {

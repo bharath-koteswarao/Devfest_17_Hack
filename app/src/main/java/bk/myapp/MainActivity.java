@@ -1,5 +1,6 @@
 package bk.myapp;
 
+import android.Manifest;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
@@ -13,7 +14,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.telephony.SmsManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -22,7 +22,6 @@ import bk.myapp.Fragments.History;
 import bk.myapp.Fragments.Home;
 import bk.myapp.Fragments.Settings;
 import bk.myapp.showContactsRecview.ViewContacts;
-import com.google.firebase.database.*;
 import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
 
 import java.util.ArrayList;
@@ -57,9 +56,9 @@ public class MainActivity extends AppCompatActivity {
         manager = this.getFragmentManager();
         transaction = manager.beginTransaction();
         transaction.replace(R.id.content, home).commit();
-        startService(new Intent(this,FirebaseListeneingService.class));
+        startService(new Intent(this, FirebaseListeneingService.class));
+        startService(new Intent(getApplicationContext(), LockService.class));
     }
-
 
 
     private void initializeFragments() {
@@ -139,7 +138,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void emf(View view) {
-        startActivity(new Intent(this, NotificationReceiver.class));
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            startActivity(new Intent(this, NotificationReceiver.class));
+        } else {
+            //ask for permission if user didnot given
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        1);
+            }
+        }
     }
 
     public void startTrustedContacts(View view) {
@@ -154,7 +162,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void logout(View view) {
-        //todo delete all shared prefs
+        getSharedPreferences("sp", MODE_PRIVATE).edit().clear().apply();
+        getSharedPreferences("truConts", MODE_PRIVATE).edit().clear().apply();
+        Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(this, Login.class));
     }
 
     @Override
@@ -165,6 +176,13 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(new Intent(this, ViewContacts.class));
                 } else {
                     Toast.makeText(this, "We need contacts permission", Toast.LENGTH_SHORT).show();
+                }
+            }
+            case 1: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    startActivity(new Intent(this, NotificationReceiver.class));
+                } else {
+                    Toast.makeText(this, "We need Location permission", Toast.LENGTH_SHORT).show();
                 }
             }
         }
