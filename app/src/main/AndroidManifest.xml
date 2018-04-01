@@ -45,9 +45,9 @@
 		<activity android:name="bharat.sos_tarp.addContactsRecview.AddContacts">
 		</activity>
 		
-		<service android:name="bharat.sos_tarp.LockService" >
+		<service android:name="bharat.sos_tarp.LockService">
 			<intent-filter>
-				<action android:name="android.intent.action.BOOT_COMPLETED" />
+				<action android:name="android.intent.action.BOOT_COMPLETED"/>
 			</intent-filter>
 		</service>
 	</application>

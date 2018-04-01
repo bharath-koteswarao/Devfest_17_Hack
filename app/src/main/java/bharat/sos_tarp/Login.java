@@ -20,11 +20,13 @@ public class Login extends AppCompatActivity {
     TextView welcome;
     SharedPreferences preferences;
     EditText userName, passWord;
+    Config config;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        config = new Config(this);
         userName = (EditText) findViewById(R.id.userName);
         passWord = (EditText) findViewById(R.id.password);
         preferences = getSharedPreferences("sp", MODE_PRIVATE);
@@ -49,18 +51,22 @@ public class Login extends AppCompatActivity {
     public void createUser(View view) {
         String username = userName.getText().toString();
         String password = passWord.getText().toString();
-        if (username.contains("@") || username.contains(".") || username.contains("$") || username.contains("[") || username.contains("]") || username.contains("#") || username.contains("/")) {
-            userName.setError("Username can only contain characters a-z and A-Z and _");
-            userName.requestFocus();
-        } else if (!username.equals("") && !password.equals("")) {
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putBoolean("loggedIn", true);
-            editor.putString("name", username);
-            editor.putString("password", password);
-            editor.apply();
-            writeUserToDatabase(username, password);
+        if (config.isNetworkAvailable()) {
+            if (username.contains("@") || username.contains(".") || username.contains("$") || username.contains("[") || username.contains("]") || username.contains("#") || username.contains("/")) {
+                userName.setError("Username can only contain characters a-z and A-Z and _");
+                userName.requestFocus();
+            } else if (!username.equals("") && !password.equals("")) {
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean("loggedIn", true);
+                editor.putString("name", username);
+                editor.putString("password", password);
+                editor.apply();
+                writeUserToDatabase(username, password);
+            } else {
+                Toast.makeText(this, "Invalid Username or Password", Toast.LENGTH_SHORT).show();
+            }
         } else {
-            Toast.makeText(this, "Invalid Username or Password", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "You must be connected to network to finishi signup", Toast.LENGTH_LONG).show();
         }
     }
 

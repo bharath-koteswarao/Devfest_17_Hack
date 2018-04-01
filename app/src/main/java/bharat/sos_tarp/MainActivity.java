@@ -3,6 +3,7 @@ package bharat.sos_tarp;
 import android.Manifest;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -83,7 +84,10 @@ public class MainActivity extends AppCompatActivity {
         if (config.isNetworkAvailable()) {
             (new Firebase(this)).sendAlertMessage(preferences.getString("name", ""), reason);
             startActivity(new Intent(this, AlertSuccessActivity.class));
-        } else sendMessageToTrustedContacts(reason);
+        } else {
+            sendMessageToTrustedContacts(reason);
+            onBackPressed();
+        }
     }
 
     private void sendMessageToTrustedContacts(String reason) {
@@ -97,22 +101,18 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         for (String mobile : mobileNumbers) {
-            sendSmsMsgFnc(mobile, "I'm in trouble. Reason is " + reason);
+            sendSms(mobile, "I'm in trouble. Reason is " + reason);
         }
+        Toast.makeText(this, "SMS Sent", Toast.LENGTH_SHORT).show();
     }
 
-    void sendSmsMsgFnc(String mblNumVar, String smsMsgVar) {
+    void sendSms(String mobile, String message) {
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED) {
-            try {
-                SmsManager smsMgrVar = SmsManager.getDefault();
-                smsMgrVar.sendTextMessage(mblNumVar, null, smsMsgVar, null, null);
-                Toast.makeText(getApplicationContext(), "Message Sent",
-                        Toast.LENGTH_LONG).show();
-            } catch (Exception ErrVar) {
-                Toast.makeText(this, ErrVar.getMessage(),
-                        Toast.LENGTH_LONG).show();
-                ErrVar.printStackTrace();
-            }
+            SmsManager sms = SmsManager.getDefault();
+            PendingIntent sentPI;
+            String SENT = "SMS_SENT";
+            sentPI = PendingIntent.getBroadcast(this, 0,new Intent(SENT), 0);
+            sms.sendTextMessage(mobile, null, message, sentPI, null);
         } else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 requestPermissions(new String[]{android.Manifest.permission.SEND_SMS}, 10);
