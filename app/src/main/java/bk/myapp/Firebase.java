@@ -21,6 +21,6 @@ public class Firebase {
     }
 
     public void sendAlertMessage(String name, String reason) {
-        reference.child("name").setValue(new Person(name, cont.getSharedPreferences("sp", Context.MODE_PRIVATE).getString("password", ""), reason));
+        reference.child(name).setValue(new Person(name, cont.getSharedPreferences("sp", Context.MODE_PRIVATE).getString("password", ""), reason));
     }
 }

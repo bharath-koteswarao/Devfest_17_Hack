@@ -20,7 +20,7 @@ public class Data {
     public List<ListItem> getList() {
         String contactString = context.getSharedPreferences("truConts", Context.MODE_PRIVATE).getString("contacts", "");
         String[] conts = contactString.split("%%");
-        Toast.makeText(context, contactString, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(context, contactString, Toast.LENGTH_SHORT).show();
         List<ListItem> list = new ArrayList<>();
         for (String contact : conts) {
             String[] broken = contact.split(",");

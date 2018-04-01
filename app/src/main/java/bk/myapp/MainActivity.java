@@ -2,14 +2,18 @@ package bk.myapp;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -20,6 +24,9 @@ import bk.myapp.Fragments.Settings;
 import bk.myapp.showContactsRecview.ViewContacts;
 import com.google.firebase.database.*;
 import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     RelativeLayout layout;
@@ -32,11 +39,14 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
     SharedPreferences preferences;
     FlowingDrawer drawer;
+    Config config;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        config = new Config(this);
+        if (!config.isNetworkAvailable()) Toast.makeText(this, "No internet", Toast.LENGTH_SHORT).show();
         preferences = getSharedPreferences("sp", MODE_PRIVATE);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -47,31 +57,10 @@ public class MainActivity extends AppCompatActivity {
         manager = this.getFragmentManager();
         transaction = manager.beginTransaction();
         transaction.replace(R.id.content, home).commit();
-        listenToFirebaseChanges();
+        startService(new Intent(this,FirebaseListeneingService.class));
     }
 
 
-    private void listenToFirebaseChanges() {
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference reference = database.getReference("name");
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Person p = dataSnapshot.getValue(Person.class);
-                if (p != null) {
-                    if (!p.name.equals(preferences.getString("name", ""))) {
-                        Notifs notifs = new Notifs(MainActivity.this);
-                        notifs.showNotification(p.reason);
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
 
     private void initializeFragments() {
         home = new Home();
@@ -92,8 +81,45 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sendAlertMessage(String reason) {
-        (new Firebase(this)).sendAlertMessage(preferences.getString("name", ""), reason);
-        startActivity(new Intent(this, AlertSuccessActivity.class));
+        if (config.isNetworkAvailable()) {
+            (new Firebase(this)).sendAlertMessage(preferences.getString("name", ""), reason);
+            startActivity(new Intent(this, AlertSuccessActivity.class));
+        } else sendMessageToTrustedContacts(reason);
+    }
+
+    private void sendMessageToTrustedContacts(String reason) {
+        String contactString = getSharedPreferences("truConts", Context.MODE_PRIVATE).getString("contacts", "");
+        String[] conts = contactString.split("%%");
+        List<String> mobileNumbers = new ArrayList<>();
+        for (String contact : conts) {
+            try {
+                mobileNumbers.add(contact.split(",")[1]);
+            } catch (Exception ignored) {
+            }
+        }
+        for (String mobile : mobileNumbers) {
+            sendSmsMsgFnc(mobile, "I'm in trouble. Reason is " + reason);
+        }
+    }
+
+    void sendSmsMsgFnc(String mblNumVar, String smsMsgVar) {
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED) {
+            try {
+                SmsManager smsMgrVar = SmsManager.getDefault();
+                smsMgrVar.sendTextMessage(mblNumVar, null, smsMsgVar, null, null);
+                Toast.makeText(getApplicationContext(), "Message Sent",
+                        Toast.LENGTH_LONG).show();
+            } catch (Exception ErrVar) {
+                Toast.makeText(this, ErrVar.getMessage(),
+                        Toast.LENGTH_LONG).show();
+                ErrVar.printStackTrace();
+            }
+        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(new String[]{android.Manifest.permission.SEND_SMS}, 10);
+            }
+        }
+
     }
 
     public void hf(View view) {
@@ -128,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void logout(View view) {
-
+        //todo delete all shared prefs
     }
 
     @Override
