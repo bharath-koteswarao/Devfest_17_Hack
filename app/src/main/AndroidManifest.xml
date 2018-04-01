@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="bk.myapp">
+          package="bharat.sos_tarp">
 	
 	<uses-permission android:name="android.permission.INTERNET"/>
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
@@ -16,7 +16,7 @@
 		android:roundIcon="@mipmap/ic_launcher"
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme">
-		<service android:name=".FirebaseListeneingService"/>
+		<service android:name="bharat.sos_tarp.FirebaseListeneingService"/>
 		
 		<meta-data
 			android:name="com.google.android.geo.API_KEY"
@@ -25,27 +25,27 @@
 			android:name="com.google.android.gms.version"
 			android:value="@integer/google_play_services_version"/>
 		
-		<activity android:name=".Login">
+		<activity android:name="bharat.sos_tarp.Login">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN"/>
 				
 				<category android:name="android.intent.category.LAUNCHER"/>
 			</intent-filter>
 		</activity>
-		<activity android:name=".MainActivity">
+		<activity android:name="bharat.sos_tarp.MainActivity">
 		</activity>
-		<activity android:name=".NotificationReceiver">
+		<activity android:name="bharat.sos_tarp.NotificationReceiver">
 		</activity>
-		<activity android:name=".MapActivity">
+		<activity android:name="bharat.sos_tarp.MapActivity">
 		</activity>
-		<activity android:name=".AlertSuccessActivity">
+		<activity android:name="bharat.sos_tarp.AlertSuccessActivity">
 		</activity>
-		<activity android:name=".showContactsRecview.ViewContacts">
+		<activity android:name="bharat.sos_tarp.showContactsRecview.ViewContacts">
 		</activity>
-		<activity android:name=".addContactsRecview.AddContacts">
+		<activity android:name="bharat.sos_tarp.addContactsRecview.AddContacts">
 		</activity>
 		
-		<service android:name=".LockService" >
+		<service android:name="bharat.sos_tarp.LockService" >
 			<intent-filter>
 				<action android:name="android.intent.action.BOOT_COMPLETED" />
 			</intent-filter>

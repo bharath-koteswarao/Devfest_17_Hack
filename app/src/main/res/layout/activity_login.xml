@@ -6,7 +6,7 @@
 	android:layout_height="match_parent"
 	android:background="@drawable/gradiant"
 	android:orientation="vertical"
-	tools:context="bk.myapp.Login">
+	tools:context="bharat.sos_tarp.Login">
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
